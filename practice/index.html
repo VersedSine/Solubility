@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>练习！</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        .button-container button {
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <div class="button-container">
+        <button onclick="c0()">溶</button>
+        <button onclick="c1()">不</button>
+        <button onclick="c2()">微</button>
+    </div>
+    <br><br>
+    <div id="messages">
+        <!--<div style="width: 300px;;border-radius: 10px;border: 1px solid red;overflow: hidden;">
+            <div style="display: block;;padding: 8px 16px 5px;background-color: #ffc7c7;font-size: 18px;">
+                <img src="./img/error.svg" style="width: 19px;height: 19px;">
+                &nbsp;错误&nbsp;
+            </div>
+            <div style="padding: 8px 16px 5px;background-color: #ffecec;"></div>
+        </div><br>
+        <div style="width: 300px;;border-radius: 10px;border: 1px solid #267b30;overflow: hidden;">
+            <div style="display: block;;padding: 8px 16px 5px;background-color: #aef3ae;font-size: 18px;">
+                <img src="./img/checkmark.svg" style="width: 19px;height: 19px;">
+                &nbsp;正确&nbsp;
+            </div>
+            <div style="padding: 8px 16px 5px;background-color: #e3ffe3;"></div>
+        </div>-->
+    </div>
+    <script>
+        function gebi(id){return document.getElementById(id);}
+
+        var l={
+            0:{0:"\\(\\text{HNO}_{3}\\)",1:0},
+            1:{0:"\\(\\text{HCl}\\)",1:0},
+            2:{0:"\\(\\text{H}_{2}\\text{SO}_{4}\\)",1:0},
+            3:{0:"\\(\\text{H}_{2}\\text{CO}_{3}\\)",1:0},
+            4:{0:"\\(\\text{NH}_{3}·\\text{H}_{2}\\text{O}\\)",1:0},
+            5:{0:"\\(\\text{NH}_{4}\\text{NO}_{3}\\)",1:0},
+            6:{0:"\\(\\text{NH}_{4}\\text{Cl}\\)",1:0},
+            7:{0:"\\((\\text{NH}_{4})_{2}\\text{SO}_{4}\\)",1:0},
+            8:{0:"\\((\\text{NH}_{4})_{2}\\text{CO}_{3}\\)",1:0},
+            9:{0:"\\(\\text{KOH}\\)",1:0},
+            10:{0:"\\(\\text{KNO}_{3}\\)",1:0},
+            11:{0:"\\(\\text{KCl}\\)",1:0},
+            12:{0:"\\(\\text{K}_{2}\\text{SO}_{4}\\)",1:0},
+            13:{0:"\\(\\text{K}_{2}\\text{CO}_{3}\\)",1:0},
+            14:{0:"\\(\\text{NaOH}\\)",1:0},
+            15:{0:"\\(\\text{NaNO}_{3}\\)",1:0},
+            16:{0:"\\(\\text{NaCl}\\)",1:0},
+            17:{0:"\\(\\text{Na}_{2}\\text{SO}_{4}\\)",1:0},
+            18:{0:"\\(\\text{Na}_{2}\\text{CO}_{3}\\)",1:0},
+            19:{0:"\\(\\text{Ba(OH)}_{2}\\)",1:0},
+            20:{0:"\\(\\text{Ba(NO}_{3}\\text{)}_{2}\\)",1:0},
+            21:{0:"\\(\\text{BaCl}_{2}\\)",1:0},
+            22:{0:"\\(\\text{BaSO}_{4}\\)",1:1},
+            23:{0:"\\(\\text{BaCO}_{3}\\)",1:1},
+            24:{0:"\\(\\text{Ca(OH)}_{2}\\)",1:2},
+            25:{0:"\\(\\text{Ca(NO}_{3}\\text{)}_{2}\\)",1:0},
+            26:{0:"\\(\\text{CaCl}_{2}\\)",1:0},
+            27:{0:"\\(\\text{CaSO}_{4}\\)",1:2},
+            28:{0:"\\(\\text{CaCO}_{3}\\)",1:1},
+            29:{0:"\\(\\text{Mg(OH)}_{2}\\)",1:1},
+            30:{0:"\\(\\text{Mg(NO}_{3}\\text{)}_{2}\\)",1:0},
+            31:{0:"\\(\\text{MgCl}_{2}\\)",1:0},
+            32:{0:"\\(\\text{MgSO}_{4}\\)",1:0},
+            33:{0:"\\(\\text{MgCO}_{3]\\)",1:2},
+            34:{0:"\\(\\text{Al(OH)}_{3}\\)",1:1},
+            35:{0:"\\(\\text{Al(NO}_{3}\\text{)}_{3}\\)",1:0},
+            36:{0:"\\(\\text{AlCl}_{3}\\)",1:0},
+            37:{0:"\\(\\text{Al}_{2}\\text{(SO}_{3}\\text{)}_{3}\\)",1:0},
+            38:{0:"\\(\\text{Mn(OH)}_{2}\\)",1:1},
+            39:{0:"\\(\\text{Mn(NO}_{3}\\text{)}_{2}\\)",1:0},
+            40:{0:"\\(\\text{MnCl}_{2}\\)",1:0},
+            41:{0:"\\(\\text{MnSO}_{4}\\)",1:0},
+            42:{0:"\\(\\text{MnCO}_{3}\\)",1:1},
+            43:{0:"\\(\\text{Zn(OH)}_{2}\\)",1:1},
+            44:{0:"\\(\\text{Zn(NO}_{3}\\text{)}_{2}\\)",1:0},
+            45:{0:"\\(\\text{ZnCl}_{2}\\)",1:0},
+            46:{0:"\\(\\text{ZnSO}_{4}\\)",1:0},
+            47:{0:"\\(\\text{ZnCO}_{3}\\)",1:1},
+            48:{0:"\\(\\text{Fe(OH)}_{2}\\)",1:1},
+            49:{0:"\\(\\text{Fe(NO}_{3}\\text{)}_{2}\\)",1:0},
+            50:{0:"\\(\\text{FeCl}_{2}\\)",1:0},
+            51:{0:"\\(\\text{FeSO}_{4}\\)",1:0},
+            52:{0:"\\(\\text{FeCO}_{3}\\)",1:1},
+            53:{0:"\\(\\text{Fe(OH)}_{3}\\)",1:1},
+            54:{0:"\\(\\text{Fe(NO}_{3}\\text{)}_{3}\\)",1:0},
+            55:{0:"\\(\\text{FeCl}_{3}\\)",1:0},
+            56:{0:"\\(\\text{Fe}_{2}\\text{(SO}_{4}\\text{)}_{3}\\)",1:0},
+            57:{0:"\\(\\text{Cu(OH)}_{2}\\)",1:1},
+            58:{0:"\\(\\text{Cu(NO}_{3}\\text{)}_{2}\\)",1:0},
+            59:{0:"\\(\\text{CuCl}_2\\)",1:0},
+            60:{0:"\\(\\text{CuSO}_{4}\\)",1:0},
+            61:{0:"\\(\\text{CuCO}_{3}\\)",1:1},
+            62:{0:"\\(\\text{AgNO}_{3}\\)",1:0},
+            63:{0:"\\(\\text{AgCl}\\)",1:1},
+            64:{0:"\\(\\text{Ag}_{2}\\text{SO}_{4}\\)",1:2},
+            65:{0:"\\(\\text{Ag}_{2}\\text{CO}_{3}\\)",1:1}
+        };
+        function right(a){
+            return `<div style="width: 300px;;border-radius: 10px;border: 1px solid #267b30;overflow: hidden;">
+            <div style="display: block;;padding: 8px 16px 5px;background-color: #aef3ae;font-size: 18px;">
+                <img src="./img/checkmark.svg" style="width: 19px;height: 19px;">
+                &nbsp;正确&nbsp;
+            </div>
+            <div style="padding: 8px 16px 5px;background-color: #e3ffe3;">${a}</div>
+            </div><br>`;
+        }
+        function wrong(a){
+            return `<div style="width: 300px;;border-radius: 10px;border: 1px solid red;overflow: hidden;">
+            <div style="display: block;;padding: 8px 16px 5px;background-color: #ffc7c7;font-size: 18px;">
+                <img src="./img/error.svg" style="width: 19px;height: 19px;">
+                &nbsp;错误&nbsp;
+            </div>
+            <div style="padding: 8px 16px 5px;background-color: #ffecec;">${a}</div>
+            </div><br>`;
+        }
+        var sMessages=[];
+
+        var div1=gebi("div1");
+        var messages=gebi("messages");
+        var problem;
+        function random() {
+            var temp = Math.floor(Math.random() * Object.keys(l).length);
+            while(temp==problem) temp = Math.floor(Math.random() * Object.keys(l).length);
+            problem = temp;
+            var content = l[problem][0];
+            div1.innerHTML = `<p id="problem">${content}</p>`;
+        }
+        window.onload = f1 = function() {
+            random();
+            MathJax.typeset([gebi("problem")]);
+            MathJax.typeset([gebi("messages")]);
+        };
+        
+        function show(){
+            messages.innerHTML = sMessages.toString().split(",").join("<br>");
+        }
+
+        function c0(){
+            if(l[problem][1]==0) sMessages.unshift(right(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            else sMessages.unshift(wrong(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            show();
+            f1();
+        }
+        function c1(){
+            if(l[problem][1]==1) sMessages.unshift(right(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            else sMessages.unshift(wrong(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            show();
+            f1();
+        }
+        function c2(){
+            if(l[problem][1]==2) sMessages.unshift(right(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            else sMessages.unshift(wrong(`${l[problem][0]}&nbsp;${l[problem][1]==0?"能溶":(l[problem][1]==1?"不溶":"微溶")}`));
+            show();
+            f1();
+        }
+    </script>
+</body>
+</html>
